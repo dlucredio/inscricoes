@@ -21,10 +21,11 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: ./mvnw --batch-mode --update-snapshots compile war:war
-    - name: Copy target to staging
-      run: mkdir staging && cp ./target/*.war staging
-    - name: Upload target
-      uses: actions/upload-artifact@v3
-      with:
-        name: Package
-        path: staging
+    - name: Copy target to build
+      run: mkdir build && cp ./target/*.war build
+    - name: Commit build
+      run: |
+        git config --global user.name 'CI/CD script'
+        git config --global user.email 'dlucredio@users.noreply.github.com'
+        git commit -am "Automated build"
+        git push
