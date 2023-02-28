@@ -20,9 +20,9 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: ./mvnw compile war:war
+      run: ./mvnw --batch-mode --update-snapshots compile war:war
     - name: Copy target to staging
-      run: mkdir staging && cp ./target/*.jar staging
+      run: mkdir staging && cp ./target/*.war staging
     - name: Upload target
       uses: actions/upload-artifact@v3
       with:
